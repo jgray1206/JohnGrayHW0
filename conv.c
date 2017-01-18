@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 
 		if(counter==-1||decimal!=0)
 		{
-			printf("INVALID NUMBER\n");
+			printf("NUMBER TOO LARGE\n");
 		}else{
 		printf("%s\n",&buffer[counter+1]); 	//outputs converted number in buffer. Uses counter to get right location.
 		}
