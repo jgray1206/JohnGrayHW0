@@ -16,8 +16,8 @@
 #include <math.h>
 
 char *ascii = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/"; //ascii conversion string	
-char buffer[32]; //buffer that holds converted number
-int counter = 30; //counter that keeps track of converted number length 
+char buffer[32]; 	//buffer that holds converted number
+int counter = 30; 	//counter that keeps track of converted number length 
 
 int main(int argc, char **argv)
 {	
@@ -26,16 +26,22 @@ int main(int argc, char **argv)
 	{
 		printf("Usage: conv <decimal> <base>\n");
 	}
-
+	
 	else
 	{
-		int decimal = atoi(argv[1]); //converts inputted decimal char
-		int base = atoi(argv[2]); //converts inputted base char
-
+		int decimal = atoi(argv[1]); 	//converts inputted decimal char
+		int base = atoi(argv[2]); 	//converts inputted base char
+		
+		if(decimal==0||decimal<0)
+		{
+			printf("INVALID NUMBER\n");
+			return 0;
+		}
 		//Checks if the inputted base is in the propper range
 		if(base>16&&base!=64||base<2)
 		{
 			printf("INVALID BASE\n");
+			return 0;
 		}
 	
 		//This fancy algorithm checks if the given base is a power of 2 using 2s complement
@@ -44,9 +50,9 @@ int main(int argc, char **argv)
 			//continue looping until number is converted or buffers runs out of room
 			while(decimal!=0&&counter>=0)
 			{
-				buffer[counter] = ascii[decimal&(base-1)]; //masks number, converts to ascii, stores it in buffer
-				counter--; //since we put in a number, we must decrement the counter
-				decimal = decimal >> (int)(log(base)/log(2)); //updates decimal number via shifting off masked part of binary
+				buffer[counter] = ascii[decimal&(base-1)]; 	//masks number, converts to ascii, stores it in buffer
+				counter--; 					//since we put in a number, we must decrement the counter
+				decimal = decimal >> (int)(log(base)/log(2)); 	//updates decimal number via shifting off masked part of binary
 			}	
 		}	
 		
@@ -61,11 +67,11 @@ int main(int argc, char **argv)
 			}
 		}
 
-		if(counter==-1)
+		if(counter==-1||decimal!=0)
 		{
-			printf("Inputted decimal too big! Try again.\n");
+			printf("INVALID NUMBER\n");
 		}else{
-		printf("%s\n",&buffer[counter+1]); //outputs converted number in buffer. Uses counter to get right location.
+		printf("%s\n",&buffer[counter+1]); 	//outputs converted number in buffer. Uses counter to get right location.
 		}
 	}
 	
